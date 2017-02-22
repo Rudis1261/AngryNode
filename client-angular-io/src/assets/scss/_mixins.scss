@@ -370,3 +370,21 @@
     display: flex;
   }
 }
+
+@mixin respond-from($size) {
+    @media screen and (min-width: $size) {
+        @content;
+    }
+}
+
+@mixin respond-to($size) {
+    @media screen and (max-width: $size) {
+        @content;
+    }
+}
+
+@mixin respond-between($lower, $upper) {
+    @media screen and (min-width: $lower) and (max-width: $upper) {
+        @content;
+    }
+}
