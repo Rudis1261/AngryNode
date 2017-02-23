@@ -2,12 +2,16 @@
 
 <ul id="chat" *ngIf="(messages | async)?.length">
   <li class="text" *ngFor="let message of messages | async">
-    <span class="name">{{message.name}}: </span> {{message.text}}
+    <span class="name" [class.active]="newMessage.name == message.name">{{message.name}}: </span> {{message.text}}
   </li>
 </ul>
 
-<div class="row loading-heading" *ngIf="!(messages | async)?.length">
+<div class="row loading-heading" *ngIf="!loaded">
     <div class="col-12">loading...</div>
+</div>
+
+<div class="row loading-heading" *ngIf="loaded && !(messages | async)?.length">
+    <div class="col-12">No messages yet, go ahead. Add one</div>
 </div>
 
 <form 
@@ -47,3 +51,7 @@
         </div>
     </div>
 </form>
+
+<div class="row">
+    <a href="#" (click)="clear()" class="small block text-center">Clear</a>
+</div>

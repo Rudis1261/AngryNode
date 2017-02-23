@@ -115,6 +115,8 @@ textarea {
 	border-radius: $fh-border-radius;
 	border: $fh-border-width $fh-border-style $fh-border-color;
 	
+	@include transition(200ms all);
+	
 	&.ng-touched.ng-invalid {
 		border-bottom: 2px solid $fh-color-invalid;
 		+ div.error {

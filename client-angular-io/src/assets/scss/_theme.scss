@@ -44,6 +44,9 @@ body {
         .name {
             font-weight: bold;
             font-style: italic;
+            &.active {
+                color: #63acff;
+            }
         }
     }
 }
@@ -52,4 +55,13 @@ body {
     line-height: 20px;
     margin-top: 10px;
     text-align: center;
+}
+
+a.small {
+    font-size: $font-sm;
+    
+    &.block {
+        margin: 0 auto;
+        display: block;
+    }
 }

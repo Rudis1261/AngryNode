@@ -346,12 +346,21 @@
           align-self: $align;
 }
 
-@mixin flex($value){
-  -webkit-box-flex: $value;
-  -moz-box-flex: $value;
-  -webkit-flex: $value;
-  -ms-flex: $value;
-  flex: $value;
+@mixin flex($value, $important: false){
+    @if ($important) {
+        -webkit-box-flex: $value!important;
+        -moz-box-flex: $value!important;
+        -webkit-flex: $value!important;
+        -ms-flex: $value!important;
+        flex: $value!important;
+    }
+    @else {
+        -webkit-box-flex: $value;
+        -moz-box-flex: $value;
+        -webkit-flex: $value;
+        -ms-flex: $value;
+        flex: $value;
+    }
 }
 
 @mixin flex-display($important: false){

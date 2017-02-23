@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AngularFire, FirebaseRef, FirebaseListObservable } from 'angularfire2';
 
@@ -11,8 +11,10 @@ export class HomeComponent implements OnInit {
   
   messages: FirebaseListObservable<any[]>;
   newMessage: Object;
+  loaded: boolean;
   
-  constructor(public af: AngularFire) {
+  constructor(@Inject('Document') document: Document, public af: AngularFire) {
+    this.loaded = false;
     this.messages = af.database.list('/messages/');
     this.newMessage = {
       "name": "",
@@ -22,18 +24,26 @@ export class HomeComponent implements OnInit {
   }
   
   saved() {
-    console.log('item added') ;
+    console.log('Save');
     this.newMessage["text"] = "";
+    document.querySelectorAll("#chat")[0].scrollTop = document.querySelectorAll("#chat")[0].scrollHeight;
+  }
+  
+  clear() {
+    console.log('Clear');
+    this.messages.remove().then(() => console.log('deleted!'));
+  }
+  
+  load(messages) {
+    console.log('Retrieved Messages', messages);
+    this.loaded = true;
   }
   
   onSubmit(form) { 
     if (this.newMessage["name"] !== "" && this.newMessage["text"] !== "") {
-      this.newMessage["date"] = new Date().getTime();
       console.log(this.newMessage);
-      this.messages.push(this.newMessage).then(
-        () => this.saved(),
-        console.error
-      );
+      this.newMessage["date"] = new Date().getTime();
+      this.messages.push(this.newMessage).then(() => this.saved(), console.error);
     }
   }
   
@@ -43,5 +53,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.messages.subscribe((messages) => this.load(messages));
+  }
 }

@@ -37,7 +37,11 @@ export const firebaseAuthConfig = {
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig)
   ],
-  providers: [ FIREBASE_PROVIDERS ],
+  providers: [ 
+    FIREBASE_PROVIDERS,
+    { provide: 'Window',  useValue: window },
+    { provide: 'Document',  useValue: document }
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
