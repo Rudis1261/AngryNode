@@ -1,1 +1,49 @@
-<h1>Welcome</h1>
+<h1>Firebase chat test</h1>
+
+<ul id="chat" *ngIf="(messages | async)?.length">
+  <li class="text" *ngFor="let message of messages | async">
+    <span class="name">{{message.name}}: </span> {{message.text}}
+  </li>
+</ul>
+
+<div class="row loading-heading" *ngIf="!(messages | async)?.length">
+    <div class="col-12">loading...</div>
+</div>
+
+<form 
+    validation="false"
+    (ngSubmit)="onSubmit(newMessageForm)"
+    (keydown)="keyDownFunction($event, newMessageForm)" 
+    #newMessageForm="ngForm"
+>
+    <div class="row">
+        <div class="col-3">
+            <input 
+                type="text" 
+                required 
+                name="name" 
+                placeholder="Name" 
+                [(ngModel)]="newMessage.name" 
+                #errorName="ngModel" 
+            />
+            <div 
+                [hidden]="(errorName.valid || !errorName.touched)" 
+                class="error"
+            >Invalid</div>
+        </div>
+        <div class="col-9">
+            <input 
+                type="text" 
+                required 
+                name="text" 
+                placeholder="Message" 
+                [(ngModel)]="newMessage.text" 
+                #errorMessage="ngModel"
+            />
+            <div 
+                [hidden]="(errorMessage.valid || !errorMessage.touched)"
+                class="error"
+            >Invalid</div>
+        </div>
+    </div>
+</form>

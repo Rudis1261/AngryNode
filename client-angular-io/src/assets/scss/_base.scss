@@ -9,6 +9,40 @@
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+html {
+    min-width: 100%;
+    min-height: 100%;
+}
+
 h1, h2, h3, h4, h5 {
     font-family: $headingFont;
+}
+
+.row {
+    @include flex-display();
+    margin-bottom: 10px;
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+}
+
+.col-1,
+.col-2,
+.col-3,
+.col-4,
+.col-5,
+.col-6,
+.col-7,
+.col-8,
+.col-9,
+.col-10,
+.col-11,
+.col-12 {
+    padding: 0 10px;
+}
+
+@each $col in 1,2,3,4,5,6,7,8,9,10,11,12 {
+    .col-#{$col} {
+        @include flex(0 0 (100% * ($col / 12)));
+    }
 }
