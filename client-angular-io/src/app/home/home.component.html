@@ -13,11 +13,10 @@
 <div class="row loading-heading" *ngIf="loaded && !(messages | async)?.length">
     <div class="col-12">No messages yet, go ahead. Add one</div>
 </div>
-
+    
 <form 
     validation="false"
     (ngSubmit)="onSubmit(newMessageForm)"
-    (keydown)="keyDownFunction($event, newMessageForm)" 
     #newMessageForm="ngForm"
 >
     <div class="row">
@@ -50,7 +49,21 @@
             >Invalid</div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-12">
+            <input type="submit" value="Send" />
+        </div>
+    </div>
 </form>
+
+<div class="row">
+    <div class="col-12">
+        <input type="text" value="" />
+        <input type="email" value="" />
+        <input type="tel" value="" />
+        <input type="password" value="" />
+    </div>
+</div>
 
 <div class="row">
     <a href="#" (click)="clear()" class="small block text-center">Clear</a>

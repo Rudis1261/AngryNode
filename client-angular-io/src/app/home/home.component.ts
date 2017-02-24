@@ -46,12 +46,6 @@ export class HomeComponent implements OnInit {
       this.messages.push(this.newMessage).then(() => this.saved(), console.error);
     }
   }
-  
-  keyDownFunction(event, form) {
-    if(event.keyCode == 13) {
-      this.onSubmit(form);
-    }
-  }
 
   ngOnInit() {
     this.messages.subscribe((messages) => this.load(messages));
