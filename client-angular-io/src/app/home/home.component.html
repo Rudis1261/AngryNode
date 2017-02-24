@@ -2,7 +2,7 @@
 
 <ul id="chat" *ngIf="(messages | async)?.length">
   <li class="text" *ngFor="let message of messages | async">
-    <span class="name" [class.active]="newMessage.name == message.name">{{message.name}}: </span> {{message.text}}
+    <span class="name" [class.active]="newMessage.name == message.name">{{message.name}}:&nbsp;</span> {{message.text}}
   </li>
 </ul>
 
@@ -22,19 +22,20 @@
     <div class="row">
         <div class="col-3">
             <input 
-                type="text" 
+                type="text"
                 required 
                 name="name" 
                 placeholder="Name" 
                 [(ngModel)]="newMessage.name" 
+                [disabled]="lockName"
                 #errorName="ngModel" 
             />
             <div 
-                [hidden]="(errorName.valid || !errorName.touched)" 
+                [hidden]="(errorName.valid || !errorName.touched || lockName)" 
                 class="error"
             >Invalid</div>
         </div>
-        <div class="col-9">
+        <div class="col-8">
             <input 
                 type="text" 
                 required 
@@ -48,23 +49,10 @@
                 class="error"
             >Invalid</div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <input type="submit" value="Send" />
-        </div>
+        <div class="col-1"><button type="submit">&gt;</button></div>
     </div>
 </form>
 
-<div class="row">
-    <div class="col-12">
-        <input type="text" name="textTest" value="" />
-        <input type="email" name="emailTest" value="" />
-        <input type="tel" name="telTest" value="" />
-        <input type="password" name="passwordTest" value="" />
-    </div>
-</div>
-
-<div class="row">
-    <a href="#" (click)="clear()" class="small block text-center">Clear</a>
+<div class="row" *ngIf="loaded && (messages | async)?.length">
+    <a href="#" (click)="clear()" class="small block text-center">Remove all messages</a>
 </div>

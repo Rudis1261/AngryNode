@@ -12,21 +12,37 @@ export class HomeComponent implements OnInit {
   messages: FirebaseListObservable<any[]>;
   newMessage: Object;
   loaded: boolean;
+  lockName: boolean;
   
-  constructor(@Inject('Document') document: Document, public af: AngularFire) {
+  constructor(@Inject('Document') document: Document, @Inject('Window') window: Window, public af: AngularFire) {
     this.loaded = false;
+    this.lockName = false;
     this.messages = af.database.list('/messages/');
     this.newMessage = {
       "name": "",
       "text": "",
       "date": ""
     };
+    
+    this.messages.subscribe((data) => this.receive(data));
+  }
+  
+  receive(data) {
+    this.scrollChats();
+  }
+    
+  scrollChats() {
+    if (!document.querySelectorAll("#chat") || !document.querySelectorAll("#chat").length) {
+      return false;
+    }
+    document.querySelectorAll("#chat")[0].scrollTop = document.querySelectorAll("#chat")[0].scrollHeight;
   }
   
   saved() {
+    this.lockName = true;
     console.log('Save');
     this.newMessage["text"] = "";
-    document.querySelectorAll("#chat")[0].scrollTop = document.querySelectorAll("#chat")[0].scrollHeight;
+    this.scrollChats();
   }
   
   clear() {
@@ -37,6 +53,10 @@ export class HomeComponent implements OnInit {
   load(messages) {
     console.log('Retrieved Messages', messages);
     this.loaded = true;
+    let that = this;
+    window.setTimeout(function(){
+      that.scrollChats();
+    }, 1000);
   }
   
   onSubmit(form) { 

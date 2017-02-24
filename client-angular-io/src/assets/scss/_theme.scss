@@ -9,14 +9,14 @@ body {
 }
 
 #main {
-    max-width: 600px;
+    max-width: ($screenSlim - 40px);
     background: #fff;
     margin: 100px auto 0;
     padding: 15px;
     box-shadow: 1px 1px 8px rgba(0,0,0,0.5);
     
     @include border-radius(6px);
-    @include respond-to((600px + 40px)) {
+    @include respond-to($screenSlim) {
         margin: 100px 20px 0;
     }
 }

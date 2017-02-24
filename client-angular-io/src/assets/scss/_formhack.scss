@@ -71,9 +71,13 @@ fieldset {
 	font-size: $fh-font-size;
 	color: $fh-font-color;
 	vertical-align: top;
-
 	display: $fh-display;
 	@include center-layout;
+
+	margin: 0 0 15px;
+	@include respond-to($screenSlim) {
+		margin: 0 auto 15px;
+	}
 }
 
 datalist {
@@ -124,14 +128,21 @@ textarea {
 			color: #fff;    
 			float: left;
 			font-size: 10px;
-		    height: 18px;
-		    padding: 0 5px;
-		    line-height: 17px;
-		    margin: -10px 0 -20px 5px;
-		    top: 0;
-		    left: 0;
-		    border-radius: 0 0 2px 2px;
+			height: 13px;
+			position: relative;
+			padding: 0 5px;
+			line-height: 12px;
+			top: 0;
+			left: 50%;
+			border-radius: 0 0 2px 2px;
+			margin: -15px 0 -20px -30px;
 		}
+	}
+	
+	&:disabled {
+		background-color: darken($fh-input-bg-color, 3%);
+		color: lighten($fh-border-color, 7%);
+		border-color: lighten($fh-border-color, 8%);
 	}
 }
 

@@ -14,8 +14,13 @@ $font-xxl: 22px;
 // Breakpoints
 $screenMobile: 320;
 $screenMobileLg: 48px;
+$screenSlim: 640px;
 $screenTablet: 768px;
 $screenDesktop: 1024px;
 $screenDesktopLg: 1280px;
 $screenJumbo: 1440px;
 $screenFull: 1440px;
+
+// Colors
+$colorPrimary: #63acff;
+$linkPrimary: $colorPrimary;
