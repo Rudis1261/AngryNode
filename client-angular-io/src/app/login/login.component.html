@@ -1,0 +1,16 @@
+<h3 class="text-center">Login</h3>
+
+<div class="row" *ngFor="let provider of loginProviders">
+    <div class="login-provider">
+        <div class="login-provider--title">With {{provider | titleCase}}</div>
+        <div class="login-provider--right">
+            <i class="icon-{{provider}}"></i>
+        </div>
+    </div>
+</div>
+
+<i class="icon-message"></i>
+<i class="icon-facebook"></i>
+<i class="icon-github"></i>
+<i class="icon-google"></i>
+<i class="icon-mail"></i>

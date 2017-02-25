@@ -1,6 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AngularFire, FirebaseRef, FirebaseListObservable } from 'angularfire2';
+
+declare var Document: any;
+declare var Window: any;
 
 @Component({
   selector: 'app-home',
@@ -14,7 +17,7 @@ export class HomeComponent implements OnInit {
   loaded: boolean;
   lockName: boolean;
   
-  constructor(@Inject('Document') document: Document, @Inject('Window') window: Window, public af: AngularFire) {
+  constructor(public af: AngularFire) {
     this.loaded = false;
     this.lockName = false;
     this.messages = af.database.list('/messages/');

@@ -1,4 +1,7 @@
-body {
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+body,
+html {
     background: -moz-linear-gradient(180deg, #404040 0%, #4A4A4A 50%, #333333 100%); /* ff3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%, #333333), color-stop(50%, #4A4A4A), color-stop(100%, #404040)); /* safari4+,chrome */
     background: -webkit-linear-gradient(180deg, #404040 0%, #4A4A4A 50%, #333333 100%); /* safari5.1+,chrome10+ */
@@ -35,7 +38,7 @@ body {
         list-style: none;
         padding: 8px;
         @include flex-display();
-        @include align-items(center);
+        @include align-items(flex-start);
 
         &:nth-of-type(odd) {
             background: rgba(113, 113, 113, 0.04);

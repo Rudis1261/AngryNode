@@ -10,6 +10,8 @@ import { FIREBASE_PROVIDERS, AngularFireModule, AuthProviders, AuthMethods } fro
 // Components
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { TitleCasePipe } from './title-case.pipe';
 
 // AF2 Settings
 export const firebaseConfig = {
@@ -28,7 +30,9 @@ export const firebaseAuthConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent,
+    TitleCasePipe
   ],
   imports: [
     BrowserModule,
@@ -37,11 +41,7 @@ export const firebaseAuthConfig = {
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig)
   ],
-  providers: [ 
-    FIREBASE_PROVIDERS,
-    { provide: 'Window',  useValue: window },
-    { provide: 'Document',  useValue: document }
-  ],
+  providers: [ FIREBASE_PROVIDERS ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
