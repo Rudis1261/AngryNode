@@ -2,7 +2,7 @@
 
 <ul id="chat" *ngIf="(messages | async)?.length">
   <li class="text" *ngFor="let message of messages | async">
-    <span class="name" [class.active]="newMessage.name == message.name">{{message.name}}:&nbsp;</span> {{message.text}}
+    <span class="name" [class.active]="auth.displayName == message.name || auth.email == message.name">{{message.name}}:&nbsp;</span> {{message.text}}
   </li>
 </ul>
 
@@ -20,21 +20,6 @@
     #newMessageForm="ngForm"
 >
     <div class="row">
-        <div class="col-3">
-            <input 
-                type="text"
-                required 
-                name="name" 
-                placeholder="Name" 
-                [(ngModel)]="newMessage.name" 
-                [disabled]="lockName"
-                #errorName="ngModel" 
-            />
-            <div 
-                [hidden]="(errorName.valid || !errorName.touched || lockName)" 
-                class="error"
-            >Invalid</div>
-        </div>
         <div class="col-8">
             <input 
                 type="text" 
@@ -49,10 +34,25 @@
                 class="error"
             >Invalid</div>
         </div>
-        <div class="col-1"><button type="submit">&gt;</button></div>
+        <div class="col-3">
+            <button type="submit">Send</button>
+        </div>
     </div>
 </form>
 
-<div class="row" *ngIf="loaded && (messages | async)?.length">
-    <a href="#" (click)="clear()" class="small block text-center">Remove all messages</a>
+<div class="row">
+    <div class="block text-center">
+        <a 
+            *ngIf="loaded && (messages | async)?.length" 
+            href="#" 
+            (click)="clear($event)"
+            class="small text-center pull-left"
+        >Remove all messages</a>
+        &nbsp;&nbsp; 
+        <a 
+            href="#" 
+            (click)="logout($event)"
+            class="small text-center pull-right"
+        >Logout</a>
+    </div>
 </div>

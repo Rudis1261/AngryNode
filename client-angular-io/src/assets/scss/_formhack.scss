@@ -72,12 +72,7 @@ fieldset {
 	color: $fh-font-color;
 	vertical-align: top;
 	display: $fh-display;
-	@include center-layout;
-
-	margin: 0 0 15px;
-	@include respond-to($screenSlim) {
-		margin: 0 auto 15px;
-	}
+	margin: 0 auto 15px;
 }
 
 datalist {

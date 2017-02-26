@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AngularFire, FirebaseRef, FirebaseListObservable } from 'angularfire2';
 
 declare var Document: any;
@@ -16,8 +17,9 @@ export class HomeComponent implements OnInit {
   newMessage: Object;
   loaded: boolean;
   lockName: boolean;
+  auth: any;
   
-  constructor(public af: AngularFire) {
+  constructor(public af: AngularFire, private router: Router) {
     this.loaded = false;
     this.lockName = false;
     this.messages = af.database.list('/messages/');
@@ -28,6 +30,7 @@ export class HomeComponent implements OnInit {
     };
     
     this.messages.subscribe((data) => this.receive(data));
+    this.auth = false;
   }
   
   receive(data) {
@@ -43,18 +46,24 @@ export class HomeComponent implements OnInit {
   
   saved() {
     this.lockName = true;
-    console.log('Save');
+    //console.log('Save');
     this.newMessage["text"] = "";
     this.scrollChats();
   }
   
-  clear() {
-    console.log('Clear');
+  clear(event) {
+    //console.log('Clear');
+    event.preventDefault();
     this.messages.remove().then(() => console.log('deleted!'));
   }
   
-  load(messages) {
-    console.log('Retrieved Messages', messages);
+  logout(event) {
+    event.preventDefault();
+    this.af.auth.logout();
+  }
+  
+  onLoad(messages) {
+    //console.log('Retrieved Messages', messages);
     this.loaded = true;
     let that = this;
     window.setTimeout(function(){
@@ -63,14 +72,24 @@ export class HomeComponent implements OnInit {
   }
   
   onSubmit(form) { 
-    if (this.newMessage["name"] !== "" && this.newMessage["text"] !== "") {
-      console.log(this.newMessage);
+    if (this.auth.displayName !== "" && this.newMessage["text"] !== "") {
       this.newMessage["date"] = new Date().getTime();
+      this.newMessage["name"] = this.auth.displayName || this.auth.email;
+      //console.log("NEW MESSAGE:", this.newMessage);
       this.messages.push(this.newMessage).then(() => this.saved(), console.error);
     }
   }
 
   ngOnInit() {
-    this.messages.subscribe((messages) => this.load(messages));
+    this.messages.subscribe((messages) => this.onLoad(messages));
+    
+    this.af.auth.subscribe(auth => {
+      //console.log(auth);
+      if(auth && auth.auth) {
+        this.auth = auth.auth;
+      } else {
+        this.router.navigate(['/login'])
+      }
+    });
   }
 }

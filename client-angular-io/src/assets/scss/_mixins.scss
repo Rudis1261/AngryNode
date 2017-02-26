@@ -1,6 +1,9 @@
 /* ==========================================================================
    Mixins
    ========================================================================== */
+@function color($colors, $key) {
+  @return map-get($colors, $key);
+}
 
 @mixin vendor($property, $value){
   -webkit-#{$property}:$value;

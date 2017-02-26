@@ -1,16 +1,77 @@
 <h3 class="text-center">Login</h3>
+<div class="row"></div>
 
-<div class="row" *ngFor="let provider of loginProviders">
-    <div class="login-provider">
-        <div class="login-provider--title">With {{provider | titleCase}}</div>
-        <div class="login-provider--right">
-            <i class="icon-{{provider}}"></i>
+<div class="row message error" *ngIf="error && error.message">{{error.message}}</div>
+
+<div *ngIf="!emailLogin">
+    <div class="row" *ngFor="let provider of loginProviders">
+        <div class="login-provider {{provider}}" (click)="login(provider)">
+            <div class="login-provider--title">Login with {{provider | titleCase}}</div>
+            <div class="login-provider--right"></div>
         </div>
     </div>
 </div>
 
-<i class="icon-message"></i>
-<i class="icon-facebook"></i>
-<i class="icon-github"></i>
-<i class="icon-google"></i>
-<i class="icon-mail"></i>
+<div *ngIf="emailLogin">
+    <form 
+        novalidate
+        (ngSubmit)="onSubmit(loginDetailsForm, 'login')"
+        #loginDetailsForm="ngForm"
+    >
+        <div class="row">
+            <h4 class="block text-center">You chose to login via email</h4>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <input 
+                    type="text" 
+                    name="email" 
+                    placeholder="email@address.co.za"
+                    required
+                    [(ngModel)]="loginDetails.email" 
+                    #errorLoginEmail="ngModel" 
+                />
+                <div 
+                    [hidden]="(errorLoginEmail.valid || !errorLoginEmail.touched)" 
+                    class="error"
+                >Invalid</div>
+            </div>   
+            <div class="col-12">
+                <input 
+                    type="password"
+                    name="password"
+                    placeholder="password"
+                    required 
+                    [(ngModel)]="loginDetails.password" 
+                    #errorLoginPassword="ngModel" 
+                />
+                <div 
+                    [hidden]="(errorLoginPassword.valid || !errorLoginPassword.touched)" 
+                    class="error"
+                >Invalid</div>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <button 
+                    type="submit" 
+                    [disabled]="loginDetailsForm.invalid"
+                >Login</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <button 
+                    (click)="onSubmit(loginDetailsForm, 'register')" 
+                    [disabled]="loginDetailsForm.invalid"
+                >Register</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<div class="row block text-center" *ngIf="emailLogin">
+    <br>
+    <a href="#" class="small" (click)="allLoginOptions($event)">Show all options</a>
+</div>
