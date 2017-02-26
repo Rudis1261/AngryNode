@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { FIREBASE_PROVIDERS, AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
 // Components
+import { AuthGuard } from './auth.service';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -41,7 +42,10 @@ export const firebaseAuthConfig = {
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig)
   ],
-  providers: [ FIREBASE_PROVIDERS ],
+  providers: [ 
+    FIREBASE_PROVIDERS,
+    AuthGuard
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

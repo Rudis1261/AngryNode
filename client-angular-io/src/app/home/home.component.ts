@@ -60,6 +60,8 @@ export class HomeComponent implements OnInit {
   logout(event) {
     event.preventDefault();
     this.af.auth.logout();
+    this.auth = false;
+    this.router.navigate(['/login']);
   }
   
   onLoad(messages) {
@@ -82,13 +84,10 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.messages.subscribe((messages) => this.onLoad(messages));
-    
     this.af.auth.subscribe(auth => {
       //console.log(auth);
       if(auth && auth.auth) {
         this.auth = auth.auth;
-      } else {
-        this.router.navigate(['/login'])
       }
     });
   }
