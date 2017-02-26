@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   authProvider: any;
   emailLogin: boolean;
   loginDetails: Object;
+  providerImages: Object;
   
   constructor(public af: AngularFire,private router: Router) {
     this.loginProviders = [
@@ -22,6 +23,12 @@ export class LoginComponent implements OnInit {
       'google',
       'github'
     ];
+    // this.providerImages = {
+    //   'email': "",
+    //   'facebook': "",
+    //   'google': "",
+    //   'github': ""
+    // };
     this.loginDetails = {
       'email': "",
       'password': ""
@@ -84,8 +91,6 @@ export class LoginComponent implements OnInit {
       return false;
     }
     
-    //consolone.log("EMAIL", this.loginDetails, "TYPE", type);
-    
     if (type == 'register') {
       
       this.af.auth.createUser({
@@ -115,5 +120,12 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.providerImages = {
+      'email': require('assets/img/social/mail.png'),
+      'facebook': require('assets/img/social/fb.png'),
+      'google': require('assets/img/social/google.png'),
+      'github': require('assets/img/social/github.png')
+    };
+  }
 }

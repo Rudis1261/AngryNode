@@ -4,11 +4,14 @@
 <div class="row message error" *ngIf="error && error.message">{{error.message}}</div>
 
 <div *ngIf="!emailLogin">
-    <div class="row" *ngFor="let provider of loginProviders">
-        <div class="login-provider {{provider}}" (click)="login(provider)">
-            <div class="login-provider--title">Login with {{provider | titleCase}}</div>
-            <div class="login-provider--right"></div>
+    <div class="row login-provider--container">
+        <div class="login-provider {{provider}}" (click)="login(provider)" *ngFor="let provider of loginProviders">
+            <div class="login-provider--title">{{provider | titleCase}}</div>
+            <div class="login-provider--right">
+                <img [src]="providerImages[provider]" alt="Login" />
+            </div>
         </div>
+        
     </div>
 </div>
 
@@ -19,36 +22,41 @@
         #loginDetailsForm="ngForm"
     >
         <div class="row">
-            <h4 class="block text-center">You chose to login via email</h4>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <input 
-                    type="text" 
-                    name="email" 
-                    placeholder="email@address.co.za"
-                    required
-                    [(ngModel)]="loginDetails.email" 
-                    #errorLoginEmail="ngModel" 
-                />
-                <div 
-                    [hidden]="(errorLoginEmail.valid || !errorLoginEmail.touched)" 
-                    class="error"
-                >Invalid</div>
+            <div class="col-6">
+                <label for="email">
+                    Email Address
+                    <input 
+                        id="email"
+                        type="text" 
+                        name="email" 
+                        placeholder="email@address.co.za"
+                        required
+                        [(ngModel)]="loginDetails.email" 
+                        #errorLoginEmail="ngModel" 
+                    />
+                    <div 
+                        [hidden]="(errorLoginEmail.valid || !errorLoginEmail.touched)" 
+                        class="error"
+                    >Invalid</div> 
+                </label>
             </div>   
-            <div class="col-12">
-                <input 
-                    type="password"
-                    name="password"
-                    placeholder="password"
-                    required 
-                    [(ngModel)]="loginDetails.password" 
-                    #errorLoginPassword="ngModel" 
-                />
-                <div 
-                    [hidden]="(errorLoginPassword.valid || !errorLoginPassword.touched)" 
-                    class="error"
-                >Invalid</div>
+            <div class="col-6">
+                <label for="password">
+                    Password
+                    <input 
+                        id="password"
+                        type="password"
+                        name="password"
+                        placeholder="password"
+                        required 
+                        [(ngModel)]="loginDetails.password" 
+                        #errorLoginPassword="ngModel" 
+                    />
+                    <div 
+                        [hidden]="(errorLoginPassword.valid || !errorLoginPassword.touched)" 
+                        class="error"
+                    >Invalid</div>
+                </label>
             </div> 
         </div>
         <div class="row">

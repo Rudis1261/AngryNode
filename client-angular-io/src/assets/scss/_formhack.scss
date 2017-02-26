@@ -81,6 +81,7 @@ datalist {
 }
 
 label {
+	font-size: 12px;
 	display: $fh-display;
 	@include center-layout;
 }

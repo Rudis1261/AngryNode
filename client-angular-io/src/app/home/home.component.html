@@ -21,18 +21,21 @@
 >
     <div class="row">
         <div class="col-8">
-            <input 
-                type="text" 
-                required 
-                name="text" 
-                placeholder="Message" 
-                [(ngModel)]="newMessage.text" 
-                #errorMessage="ngModel"
-            />
-            <div 
-                [hidden]="(errorMessage.valid || !errorMessage.touched)"
-                class="error"
-            >Invalid</div>
+            <label for="message">
+                Message
+                <input 
+                    type="text" 
+                    required 
+                    name="text" 
+                    placeholder="Message" 
+                    [(ngModel)]="newMessage.text" 
+                    #errorMessage="ngModel"
+                />
+                <div 
+                    [hidden]="(errorMessage.valid || !errorMessage.touched)"
+                    class="error"
+                >Invalid</div>
+            </label>
         </div>
         <div class="col-3">
             <button type="submit">Send</button>

@@ -2,25 +2,37 @@
 @import "../../assets/scss/settings";
 
 .login-provider {
-    display: block;
     background: #efefef;
     border: 1px solid #ccc;
     padding: 0;
-    width: 100%;
-    margin: 0 auto;
-    max-width: 300px;
     box-shadow: 1px 1px 10px rgba(204, 204, 204, 0.23);
     overflow: hidden;
     cursor: pointer;
+    margin: 0 5px 10px;
+    min-width: 85%;
+    @include flex(0 0 92%);
+    @include flex-display();
+        
+    @include respond-from(380px) {
+        min-width: 35%;
+        @include flex(1 1 46%);
+    }
+     
+    @include respond-from($screenSlim) {
+        min-width: 20%;
+        @include flex(1 1 23%);
+    }
     
     &:hover {
         box-shadow: 1px 1px 10px rgba(204, 204, 204, 0.5);
     }
     
-    @include align-items(center);
-    @include justify-content(center);
-    @include flex-display();
-    @include border-radius(2px);
+    &--container {
+        @include align-items(center);
+        @include justify-content(space-around);
+        @include flex-display();
+        @include border-radius(2px);
+    }
     
     &--title {
         padding: 10px 8px;
@@ -28,10 +40,18 @@
     }
     
     &--right {
-        height: 100%;
-        background: #fff;
-        @include align-self(center);
+        min-height: 100%;
+        background: lighten(#efefef, 2%);
+        border-left: 1px solid darken(#efefef, 5%);
         @include flex(0 0 47px);
+        @include flex-display();
+        @include justify-content(center);
+        @include align-items(center);
+        
+        img {
+            height: 30px;
+            width: auto;
+        }
     }
 
     @each $social in facebook,github,google {
@@ -42,7 +62,8 @@
                 background: color($socialColors, #{$social});
             }
             .login-provider--right {
-                background: lighten(color($socialColors, #{$social}), 30%);
+                background: lighten(color($socialColors, #{$social}), 5%);
+                border-left: 1px solid darken(color($socialColors, #{$social}), 5%);
             }
             
             &:hover {
@@ -51,7 +72,8 @@
                     background: darken(color($socialColors, #{$social}), 8%);
                 }
                 .login-provider--right {
-                    background: lighten(color($socialColors, #{$social}), 25%);
+                    background: darken(color($socialColors, #{$social}), 5%);
+                    border-left: 1px solid darken(color($socialColors, #{$social}), 15%);
                 }
             }
         }
