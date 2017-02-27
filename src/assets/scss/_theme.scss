@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+body,
+html {
+    background: #333333;
+}
+
+#main {
+    max-width: ($screenSlim - 40px);
+    background: #fff;
+    margin: 100px auto 0;
+    padding: 15px;
+    box-shadow: 1px 1px 8px rgba(0,0,0,0.5);
+
+    @include border-radius(6px);
+    @include respond-to($screenSlim) {
+        margin: 100px 20px 0;
+    }
+}
+
+#chat {
+    margin: 10px;
+    padding: 0;
+    background: #efefef;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    overflow-y: auto;
+    max-height: 200px;
+    font-size: 14px;
+    @include border-radius(2px);
+
+    li {
+        list-style: none;
+        padding: 8px;
+        @include flex-display();
+        @include align-items(flex-start);
+
+        &:nth-of-type(odd) {
+            background: rgba(113, 113, 113, 0.04);
+        }
+
+        .name {
+            font-weight: bold;
+            font-style: italic;
+            &.active {
+                color: #63acff;
+            }
+        }
+    }
+}
+
+.row.loading-heading {
+    line-height: 20px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.block {
+    margin: 0 auto;
+    display: block;
+}
+
+a.small {
+    font-size: $font-sm;
+}
+
+.message {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+
+    &.error {
+        background: #ffe6e3;
+        padding: 10px;
+        border-radius: 4px;
+        border-color: #ca3523;
+    }
+}
