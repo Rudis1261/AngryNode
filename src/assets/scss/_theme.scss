@@ -77,3 +77,14 @@ a.small {
         border-color: #ca3523;
     }
 }
+
+.container.page-heading {
+    margin-top: 30px;
+    h1 {
+        border-bottom: 1px solid #ccc;
+        + h2, h3, h4, h5 {
+            font-size: 14px;
+            color: #333;
+        }
+    }
+}
